@@ -24,7 +24,10 @@
 
 ---
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> b0e38da1395e9d6920a887daf4b8ccaf67c49297
 
 ## 🔄 Modelo Entidade-Relacionamento
 
