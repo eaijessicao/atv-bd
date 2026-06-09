@@ -24,10 +24,18 @@
 
 ---
 
-<<<<<<< HEAD
+## 🗂️ Certificados DataCamp
 
-=======
->>>>>>> b0e38da1395e9d6920a887daf4b8ccaf67c49297
+| Curso | Carga Horária | Certificado |
+|-------|--------------|-------------|
+| Introduction to SQL | 2 horas | [certificados/Introduction to SQL.pdf](certificados/Introduction%20to%20SQL.pdf) |
+| Intermediate SQL | 4 horas | [certificados/Intermediate SQL.pdf](certificados/Intermediate%20SQL.pdf) |
+| Joining Data in SQL | 4 horas | [certificados/Joining Data in SQL.pdf](certificados/Joining%20Data%20in%20SQL.pdf) |
+| Applying SQL to Real-World Problems | 4 horas | [certificados/Applying SQL to Real-World Problems.pdf](certificados/Applying%20SQL%20to%20Real-World%20Problems.pdf) |
+
+---
+
+
 
 ## 🔄 Modelo Entidade-Relacionamento
 
