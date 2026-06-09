@@ -24,15 +24,7 @@
 
 ---
 
-## 🗂️ Certificados DataCamp
 
-| Módulo | Certificado |
-|--------|-------------|
-| Introduction to SQL | [Inserir link] |
-| Intermediate SQL | [Inserir link] |
-| Joining Data in SQL | [Inserir link] |
-
----
 
 ## 🔄 Modelo Entidade-Relacionamento
 
@@ -119,8 +111,8 @@ Formas Normais aplicadas:
 | # | Pergunta de Negócio | Técnicas SQL | Por que é inovadora? |
 |---|---|---|---|
 | 01 | Quais times fizeram mais gols entre 2002 e 2010? | INNER JOIN, SUM, CASE WHEN, GROUP BY, ORDER BY, LIMIT | Recorte temporal específico revela domínio por era, não apenas histórico geral |
-| 02 | Qual time fez menos gols na história toda da Copa? | INNER JOIN, SUM, GROUP BY, HAVING, ORDER BY, LIMIT | Inverte o olhar — os "invisíveis" da Copa dizem tanto quanto os campeões |
-| 03 | Qual time participou menos entre 2002 e 2010? | INNER JOIN, COUNT, GROUP BY, ORDER BY, LIMIT | Combina filtro de período com frequência de participação, não apenas presença |
+| 02 | Quais países pequenos (até 3 edições) conseguiram vencer jogos e quanto de público foi assistir? | INNER JOIN, SUM, CASE WHEN, COUNT DISTINCT, AVG, GROUP BY, HAVING, ORDER BY, LIMIT | Cruza frequência de participação com vitórias e público — revela zebras históricas que poucos conhecem |
+| 03 | Qual foi o melhor desempenho de um país na sua Copa de estreia — gols e público médio? | INNER JOIN, SUM, COUNT, AVG, subconsulta, GROUP BY, HAVING, ORDER BY, LIMIT | Subconsulta identifica o ano de estreia de cada país e analisa seu desempenho naquele momento único |
 | 04 | Qual time sofreu mais gols em uma única edição? | INNER JOIN, SUM, CASE WHEN, GROUP BY, ORDER BY, LIMIT | Isola o pior desempenho defensivo dentro de uma Copa específica |
 | 05 | Qual Copa teve mais gols no total? | INNER JOIN, SUM, AVG, COUNT, GROUP BY, ORDER BY, LIMIT | Cruza volume de jogos com média por partida, revelando o ritmo ofensivo de cada era |
 | 06 | Qual foi o jogo com maior público de todos os tempos? | INNER JOIN (5 tabelas), ORDER BY, LIMIT | Une 5 tabelas para entregar contexto completo — time, estádio, cidade e público |

@@ -257,36 +257,57 @@ LIMIT 10;
 
 -- ─────────────────────────────────────────────────────────────────────────────
 -- QUERY 02
--- Qual time fez menos gols na história toda da Copa?
+-- Quais países pequenos (até 3 edições) conseguiram vencer jogos na Copa
+-- e quanto de público foi assistir?
 -- ─────────────────────────────────────────────────────────────────────────────
 SELECT
-    s.nome                                          AS time,
-    SUM(
-        CASE WHEN p.id_selecao_mandante = s.id_selecao
-             THEN p.gols_mandante ELSE p.gols_visitante END
-    )                                               AS total_gols
-FROM TB_PARTIDA p
-INNER JOIN TB_SELECAO s
-    ON s.id_selecao IN (p.id_selecao_mandante, p.id_selecao_visitante)
-GROUP BY s.id_selecao
-HAVING total_gols > 0
-ORDER BY total_gols ASC
-LIMIT 10;
-
--- ─────────────────────────────────────────────────────────────────────────────
--- QUERY 03
--- Qual time participou menos entre 2002 e 2010?
--- ─────────────────────────────────────────────────────────────────────────────
-SELECT
-    s.nome                      AS time,
-    COUNT(p.id_partida)         AS jogos_disputados
+    s.nome                                                          AS pais,
+    COUNT(DISTINCT e.ano)                                           AS edicoes_disputadas,
+    SUM(CASE
+        WHEN p.id_selecao_mandante  = s.id_selecao
+         AND p.gols_mandante > p.gols_visitante  THEN 1
+        WHEN p.id_selecao_visitante = s.id_selecao
+         AND p.gols_visitante > p.gols_mandante  THEN 1
+        ELSE 0 END)                                                 AS vitorias,
+    ROUND(AVG(p.publico), 0)                                        AS media_publico_nos_jogos
 FROM TB_PARTIDA p
 INNER JOIN TB_SELECAO s
     ON s.id_selecao IN (p.id_selecao_mandante, p.id_selecao_visitante)
 INNER JOIN TB_EDICAO e ON e.id_edicao = p.id_edicao
-WHERE e.ano BETWEEN 2002 AND 2010
 GROUP BY s.id_selecao
-ORDER BY jogos_disputados ASC
+HAVING edicoes_disputadas <= 3
+   AND vitorias > 0
+ORDER BY vitorias DESC, media_publico_nos_jogos DESC
+LIMIT 10;
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- QUERY 03
+-- Qual foi o melhor desempenho de um país na sua Copa de estreia —
+-- gols marcados e público médio nos seus jogos?
+-- ─────────────────────────────────────────────────────────────────────────────
+SELECT
+    s.nome                                                          AS pais,
+    MIN(e.ano)                                                      AS ano_estreia,
+    COUNT(p.id_partida)                                             AS jogos_na_estreia,
+    SUM(CASE WHEN p.id_selecao_mandante  = s.id_selecao
+             THEN p.gols_mandante ELSE p.gols_visitante END)        AS gols_marcados,
+    SUM(CASE WHEN p.id_selecao_mandante  = s.id_selecao
+             THEN p.gols_visitante ELSE p.gols_mandante END)        AS gols_sofridos,
+    ROUND(AVG(p.publico), 0)                                        AS media_publico
+FROM TB_PARTIDA p
+INNER JOIN TB_SELECAO s
+    ON s.id_selecao IN (p.id_selecao_mandante, p.id_selecao_visitante)
+INNER JOIN TB_EDICAO e ON e.id_edicao = p.id_edicao
+WHERE e.ano = (
+    SELECT MIN(e2.ano)
+    FROM TB_PARTIDA p2
+    INNER JOIN TB_EDICAO e2 ON e2.id_edicao = p2.id_edicao
+    WHERE p2.id_selecao_mandante  = s.id_selecao
+       OR p2.id_selecao_visitante = s.id_selecao
+)
+GROUP BY s.id_selecao
+HAVING gols_marcados >= 5
+ORDER BY gols_marcados DESC, media_publico DESC
 LIMIT 10;
 
 -- ─────────────────────────────────────────────────────────────────────────────
