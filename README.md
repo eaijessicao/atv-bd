@@ -18,7 +18,10 @@
 
 ## 🎬 Vídeo de Demonstração
 
-<video src="https://raw.githubusercontent.com/eajjessicao/atv-bd/master/video/projetofinal.mp4" controls width="800"></video>
+https://github.com/user-attachments/assets/b9540265-c96b-425b-996c-877be0bbca97
+
+📺 **Também disponível no YouTube:**
+[Assistir no YouTube](https://youtu.be/HKSEkS-zOVY)
 
 ## 🗂️ Certificados DataCamp
 
