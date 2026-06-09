@@ -504,35 +504,25 @@ LIMIT 10;
 -- inclusive as que não aparecem em nenhuma Final — o WHERE filtra só as que aparecem.
 -- ─────────────────────────────────────────────────────────────────────────────
 SELECT
-    s.nome                          AS time,
-    COUNT(p.id_partida)             AS finais_disputadas
-FROM TB_SELECAO s
-LEFT OUTER JOIN TB_PARTIDA p
-    ON (p.id_selecao_mandante  = s.id_selecao
-    OR  p.id_selecao_visitante = s.id_selecao)
-LEFT OUTER JOIN TB_FASE f
-    ON f.id_fase = p.id_fase
-    AND f.descricao = 'Final'
-WHERE f.id_fase IS NOT NULL
+    s.nome                          AS selecao,
+    COUNT(*)                        AS finais_disputadas
+FROM TB_PARTIDA p
+INNER JOIN TB_FASE f ON p.id_fase = f.id_fase
+INNER JOIN TB_SELECAO s
+    ON s.id_selecao = p.id_selecao_mandante
+    OR s.id_selecao = p.id_selecao_visitante
+WHERE f.descricao = 'Final'
   AND s.id_selecao NOT IN (
-      -- Subconsulta: identifica os times que já venceram pelo menos uma Final
-      SELECT
+      SELECT DISTINCT
           CASE WHEN pf.gols_mandante > pf.gols_visitante
-               THEN pf.id_selecao_mandante
-               WHEN pf.gols_visitante > pf.gols_mandante
-               THEN pf.id_selecao_visitante
-               WHEN pf.condicoes_vitoria IS NOT NULL
-                AND INSTR(LOWER(pf.condicoes_vitoria),
-                    LOWER((SELECT nome FROM TB_SELECAO
-                           WHERE id_selecao = pf.id_selecao_mandante))) > 0
                THEN pf.id_selecao_mandante
                ELSE pf.id_selecao_visitante
           END
       FROM TB_PARTIDA pf
-      INNER JOIN TB_FASE ff ON ff.id_fase = pf.id_fase
+      INNER JOIN TB_FASE ff ON pf.id_fase = ff.id_fase
       WHERE ff.descricao = 'Final'
   )
-GROUP BY s.id_selecao
+GROUP BY s.nome
 ORDER BY finais_disputadas DESC;
 
 -- ─────────────────────────────────────────────────────────────────────────────
