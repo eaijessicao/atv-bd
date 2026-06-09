@@ -24,15 +24,6 @@
 
 ---
 
-## 🗂️ Certificados DataCamp
-
-| Módulo | Certificado |
-|--------|-------------|
-| Introduction to SQL | [Inserir link] |
-| Intermediate SQL | [Inserir link] |
-| Joining Data in SQL | [Inserir link] |
-
----
 
 ## 🔄 Modelo Entidade-Relacionamento
 
